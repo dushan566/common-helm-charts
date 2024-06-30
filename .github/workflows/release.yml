@@ -32,9 +32,9 @@ jobs:
         run: |
           mkdir -p build/
           cp robots.txt build/
-          helm package charts/applications -d build/
-          helm repo index --merge gh-pages/index.yaml build/ --url https://github.io/dushan566/helm-charts/
-          RELEASE=$(grep version: charts/applications/Chart.yaml|cut -d':' -f2|xargs)
+          helm package charts/containerinfo -d build/
+          helm repo index --merge gh-pages/index.yaml build/ --url https://github.io/dushan566/common-helm-charts/
+          RELEASE=$(grep version: charts/containerinfo/Chart.yaml|cut -d':' -f2|xargs)
           echo release_version=$RELEASE >> $GITHUB_ENV;
           echo $RELEASE
       - name: Deploy 🚀
