@@ -1,0 +1,19 @@
+apiVersion: v1
+entries:
+  containerinfo:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-06-30T22:14:32.723760844Z"
+    description: A Helm chart for Kubernetes
+    digest: 03271a2e9cce29c5da85664617afb71c81dbcff4545f59716ea0830bf3decf5e
+    home: https://github.com/dushan566/common-helm-charts
+    keywords:
+    - containerinfo
+    maintainers:
+    - name: Dushan Wijesinghe
+    name: containerinfo
+    type: application
+    urls:
+    - https://github.io/dushan566/common-helm-charts/containerinfo-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-06-30T22:14:32.723320954Z"
