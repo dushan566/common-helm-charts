@@ -1,0 +1,47 @@
+name: Release Helm Charts
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'charts/**'
+      - '!charts/**/README.md'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.1
+        with:
+          persist-credentials: false
+      - name: Checkout
+        uses: actions/checkout@v2.3.1
+        with:
+          persist-credentials: false
+          ref: gh-pages
+          path: gh-pages
+      - name: Install Helm Chart
+        run: |
+          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+          chmod 700 get_helm.sh
+          ./get_helm.sh
+          rm get_helm.sh
+      - name: Run chart release process
+        run: |
+          mkdir -p build/
+          cp robots.txt build/
+          helm package charts/applications -d build/
+          helm repo index --merge gh-pages/index.yaml build/ --url https://github.io/dushan566/helm-charts/
+          RELEASE=$(grep version: charts/applications/Chart.yaml|cut -d':' -f2|xargs)
+          echo release_version=$RELEASE >> $GITHUB_ENV;
+          echo $RELEASE
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          token: ${{ secrets.AUTOMATION_TOKEN }}
+          branch: gh-pages
+          folder: build
+          clean: false
+          commit-message: "Release chart v${{ env.release_version }}"
